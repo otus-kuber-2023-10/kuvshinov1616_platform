@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: kibana-ingress
+  namespace: observability
+spec:
+  rules:
+  - host: "kibana.158.160.128.10.nip.io"
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: "/"
+        backend:
+          service:
+            name: kibana
+            port:
+              name: http
+              
+status:
+  loadBalancer:
+    ingress:
+    - ip: 158.160.128.10
