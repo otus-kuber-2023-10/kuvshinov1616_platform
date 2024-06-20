@@ -1,0 +1,34 @@
+prometheus:
+  nodeSelector:
+    yandex.cloud/node-group-id: cats4lt87lhq5lqp1gop
+  tolerations:
+    - key: node-role
+      operator: Equal
+      value: infra
+      effect: NoSchedule
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prometheus.158.160.128.10.nip.io
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+grafana:
+  nodeSelector:
+    yandex.cloud/node-group-id: cats4lt87lhq5lqp1gop
+  tolerations:
+    - key: node-role
+      operator: Equal
+      value: infra
+      effect: NoSchedule
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.158.160.128.10.nip.io
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki:3100
